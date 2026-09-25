@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "judge-policy"
+version = "0.1.0"
+description = "Guardrails for using an LLM judge as a CI gate, built on pydantic-evals"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Eitan Peles", email = "epeles@gmail.com" }]
+keywords = ["evals", "llm-as-judge", "pydantic-evals", "testing", "qa", "ci"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Testing",
+]
+dependencies = ["pydantic-evals>=1.0", "pydantic-ai-slim>=1.0", "pydantic>=2.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.24", "mypy>=1.11", "ruff>=0.6"]
+
+[project.urls]
+Source = "https://github.com/epeles/judge-policy"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/judge_policy"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src", "tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.mypy]
+strict = true
+packages = ["judge_policy"]
